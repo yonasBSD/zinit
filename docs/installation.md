@@ -125,10 +125,10 @@ COPY zinit /usr/local/bin/zinit
 RUN chmod +x /usr/local/bin/zinit
 
 # Create configuration directory
-RUN mkdir -p /etc/zinit
+RUN mkdir -p /tmp/zinit
 
 # Add your service configurations
-COPY services/*.yaml /etc/zinit/
+COPY services/*.yaml /tmp/zinit/
 
 # Set zinit as the entrypoint
 ENTRYPOINT ["/usr/local/bin/zinit", "init", "--container"]
@@ -141,7 +141,7 @@ To use Zinit as the init system (PID 1) on a Linux system:
 ### On a Standard Linux System
 
 1. Install Zinit as described above
-2. Create your service configurations in `/etc/zinit/`
+2. Create your service configurations in `/tmp/zinit/`
 3. Configure your bootloader to use zinit as init
 
 For GRUB, add `init=/usr/local/bin/zinit` to the kernel command line:
@@ -175,13 +175,13 @@ After installation, you'll need to create a basic configuration:
 1. Create the configuration directory:
 
 ```bash
-sudo mkdir -p /etc/zinit
+sudo mkdir -p /tmp/zinit
 ```
 
 2. Create a simple service configuration:
 
 ```bash
-cat << EOF | sudo tee /etc/zinit/hello.yaml
+cat << EOF | sudo tee /tmp/zinit/hello.yaml
 exec: "echo 'Hello from Zinit!'"
 oneshot: true
 EOF

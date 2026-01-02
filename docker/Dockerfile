@@ -1,6 +1,11 @@
-FROM ubuntu:18.04
+#trivy:ignore:DS001
+FROM cgr.dev/chainguard/wolfi-base:latest
 
-RUN mkdir -p /etc/zinit
-ADD zinit /sbin/zinit
+USER nobody
 
-ENTRYPOINT ["/sbin/zinit", "init"] 
+RUN mkdir -p /tmp/zinit
+COPY zinit /sbin/zinit
+
+HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
+  CMD zinit list || exit 1
+ENTRYPOINT ["/sbin/zinit", "init"]
