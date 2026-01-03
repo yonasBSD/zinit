@@ -65,11 +65,7 @@ impl Service {
             use nix::sys::signal::Signal;
             use std::convert::TryFrom;
             let s_up = self.signal.stop.to_uppercase();
-            let s = if s_up.starts_with("SIG") {
-                &s_up[3..]
-            } else {
-                &s_up[..]
-            };
+            let s = s_up.strip_prefix("SIG").unwrap_or_else(|| &s_up[..]);
             let signum = match s {
                 "TERM" => libc::SIGTERM,
                 "KILL" => libc::SIGKILL,

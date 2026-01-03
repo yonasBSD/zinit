@@ -170,11 +170,7 @@ impl LifecycleManager {
         let signal = {
             use std::convert::TryFrom;
             let s_up = service.service.signal.stop.to_uppercase();
-            let s = if s_up.starts_with("SIG") {
-                &s_up[3..]
-            } else {
-                &s_up[..]
-            };
+            let s = s_up.strip_prefix("SIG").unwrap_or_else(|| &s_up[..]);
             let signum = match s {
                 "TERM" => libc::SIGTERM,
                 "KILL" => libc::SIGKILL,
@@ -381,7 +377,7 @@ impl LifecycleManager {
         system.refresh_all();
 
         // Get the process
-        if let Some(process) = system.process(sys_pid) {
+        system.process(sys_pid).map_or_else(|| Ok((0, 0.0)), |process| {
             // Get memory in bytes
             let memory_usage = process.memory();
 
@@ -389,10 +385,7 @@ impl LifecycleManager {
             let cpu_usage = process.cpu_usage();
 
             Ok((memory_usage, cpu_usage))
-        } else {
-            // Process not found
-            Ok((0, 0.0))
-        }
+        })
     }
 
     /// Get stats for child processes

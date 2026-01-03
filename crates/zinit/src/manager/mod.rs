@@ -146,6 +146,7 @@ impl ProcessManager {
         Ok(signal::killpg(pid, sig)?)
     }
 
+    #[allow(clippy::zombie_processes)]
     pub async fn run(&self, cmd: Process, log: Log) -> Result<Child> {
         let args = shlex::split(&cmd.cmd).context("failed to parse command")?;
         if args.is_empty() {
