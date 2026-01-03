@@ -3,7 +3,14 @@
 //! This library provides a simple API for communicating with a Zinit daemon
 //! via either Unix socket (using reth-ipc) or HTTP (using jsonrpsee).
 
-#![allow(clippy::missing_errors_doc, clippy::pedantic, clippy::cargo, clippy::significant_drop_tightening, clippy::useless_let_if_seq, clippy::multiple_crate_versions)]
+#![allow(
+    clippy::missing_errors_doc,
+    clippy::pedantic,
+    clippy::cargo,
+    clippy::significant_drop_tightening,
+    clippy::useless_let_if_seq,
+    clippy::multiple_crate_versions
+)]
 
 use jsonrpsee::core::client::ClientT;
 use jsonrpsee::core::client::Error as RpcError;
@@ -96,9 +103,7 @@ impl From<RpcError> for ClientError {
                     )
                 }
                 (Some(s), Some(a), None) => {
-                    format!(
-                        "{code_name}[{code}]: {message} while {a} '{s}'. Details: {chain:?}"
-                    )
+                    format!("{code_name}[{code}]: {message} while {a} '{s}'. Details: {chain:?}")
                 }
                 _ => {
                     format!("{code_name}[{code}]: {message}. Details: {chain:?}")

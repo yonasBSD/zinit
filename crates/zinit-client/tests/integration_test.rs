@@ -41,9 +41,7 @@ async fn test_live_connection() {
     let client = match Client::unix_socket(&socket_path).await {
         Ok(client) => client,
         Err(e) => {
-            panic!(
-                "Failed to connect to Zinit socket at {socket_path}: {e}"
-            );
+            panic!("Failed to connect to Zinit socket at {socket_path}: {e}");
         }
     };
 

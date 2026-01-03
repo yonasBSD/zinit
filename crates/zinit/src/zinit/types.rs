@@ -78,13 +78,13 @@ where
     }
 
     /// Get a reference to the current value
-    #[must_use] 
+    #[must_use]
     pub fn get(&self) -> &T {
         &self.v
     }
 
     /// Create a watcher for this value
-    #[must_use] 
+    #[must_use]
     pub fn watcher(&self) -> Watcher<T> {
         WatchStream::new(self.tx.subscribe())
     }

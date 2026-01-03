@@ -34,7 +34,7 @@ pub struct Child {
 }
 
 impl Child {
-    #[must_use] 
+    #[must_use]
     pub const fn new(pid: Pid, ch: WaitChannel) -> Self {
         Self { pid, ch }
     }
@@ -73,7 +73,7 @@ pub struct ProcessManager {
 }
 
 impl ProcessManager {
-    #[must_use] 
+    #[must_use]
     pub fn new(cap: usize) -> Self {
         Self {
             table: Arc::new(Mutex::new(HashMap::new())),
@@ -115,9 +115,10 @@ impl ProcessManager {
                 for exited in Self::wait_process() {
                     if let Some(pid) = exited.pid()
                         && let Some(sender) = table.remove(&pid)
-                            && sender.send(exited).is_err() {
-                                debug!("failed to send exit state to process: {pid}");
-                            }
+                        && sender.send(exited).is_err()
+                    {
+                        debug!("failed to send exit state to process: {pid}");
+                    }
                 }
             }
         });

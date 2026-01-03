@@ -70,7 +70,7 @@ pub struct Api {
 }
 
 impl Api {
-    #[must_use] 
+    #[must_use]
     pub fn new(zinit: ZInit) -> Self {
         Self {
             zinit,

@@ -655,7 +655,18 @@ impl ZinitLoggingApiServer for Api {
         let filter = name.map(|n| format!("{n}:"));
         Ok(
             tokio_stream::wrappers::ReceiverStream::new(self.zinit.logs(true, false).await)
-                .filter_map(|l| filter.as_ref().map_or_else(|| Some(l.to_string()), |filter| if l[4..].starts_with(filter) { Some(l.to_string()) } else { None }))
+                .filter_map(|l| {
+                    filter.as_ref().map_or_else(
+                        || Some(l.to_string()),
+                        |filter| {
+                            if l[4..].starts_with(filter) {
+                                Some(l.to_string())
+                            } else {
+                                None
+                            }
+                        },
+                    )
+                })
                 .collect()
                 .await,
         )
@@ -670,7 +681,18 @@ impl ZinitLoggingApiServer for Api {
         let filter = name.map(|n| format!("{n}:"));
         let mut stream =
             tokio_stream::wrappers::ReceiverStream::new(self.zinit.logs(false, true).await)
-                .filter_map(|l| filter.as_ref().map_or_else(|| Some(l.to_string()), |filter| if l[4..].starts_with(filter) { Some(l.to_string()) } else { None }));
+                .filter_map(|l| {
+                    filter.as_ref().map_or_else(
+                        || Some(l.to_string()),
+                        |filter| {
+                            if l[4..].starts_with(filter) {
+                                Some(l.to_string())
+                            } else {
+                                None
+                            }
+                        },
+                    )
+                });
         while let Some(log) = stream.next().await {
             if sink
                 .send(serde_json::value::to_raw_value(&log)?)

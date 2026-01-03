@@ -132,9 +132,7 @@ impl Ring {
                 let line = match rx.recv().await {
                     Ok(line) => line,
                     Err(RecvError::Closed) => break,
-                    Err(RecvError::Lagged(n)) => {
-                        Arc::new(format!("[-] zinit: {n} lines dropped"))
-                    }
+                    Err(RecvError::Lagged(n)) => Arc::new(format!("[-] zinit: {n} lines dropped")),
                 };
 
                 if tx.send(line).await.is_err() {

@@ -44,7 +44,7 @@ pub enum State {
 
 impl State {
     /// Validate if a transition from the current state to the new state is valid
-    #[must_use] 
+    #[must_use]
     pub const fn can_transition_to(&self, new_state: &Self) -> bool {
         match (self, new_state) {
             // From Unknown state, any transition is valid
@@ -85,25 +85,25 @@ impl State {
     }
 
     /// Check if the state is considered "active" (running or in progress)
-    #[must_use] 
+    #[must_use]
     pub const fn is_active(&self) -> bool {
         matches!(self, Self::Running | Self::Spawned)
     }
 
     /// Check if the state is considered "terminal" (success or failure)
-    #[must_use] 
+    #[must_use]
     pub const fn is_terminal(&self) -> bool {
         matches!(self, Self::Success | Self::Error(_) | Self::Failure)
     }
 
     /// Check if the state is considered "successful"
-    #[must_use] 
+    #[must_use]
     pub const fn is_successful(&self) -> bool {
         matches!(self, Self::Success | Self::Running)
     }
 
     /// Check if the state is considered "failed"
-    #[must_use] 
+    #[must_use]
     pub const fn is_failed(&self) -> bool {
         matches!(self, Self::Error(_) | Self::Failure | Self::TestFailure)
     }

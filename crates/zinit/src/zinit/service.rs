@@ -42,7 +42,7 @@ pub struct ZInitStatus {
 
 impl ZInitService {
     /// Create a new service with the given configuration and initial state
-    #[must_use] 
+    #[must_use]
     pub fn new(service: config::Service, state: State) -> Self {
         Self {
             pid: Pid::from_raw(0),
@@ -54,7 +54,7 @@ impl ZInitService {
     }
 
     /// Get the current status of the service
-    #[must_use] 
+    #[must_use]
     pub fn status(&self) -> ZInitStatus {
         ZInitStatus {
             pid: self.pid,
@@ -87,25 +87,25 @@ impl ZInitService {
     }
 
     /// Get the current state of the service
-    #[must_use] 
+    #[must_use]
     pub fn get_state(&self) -> &State {
         self.state.get()
     }
 
     /// Get a watcher for the service state
-    #[must_use] 
+    #[must_use]
     pub fn state_watcher(&self) -> crate::zinit::types::Watcher<State> {
         self.state.watcher()
     }
 
     /// Check if the service is active (running or in progress)
-    #[must_use] 
+    #[must_use]
     pub fn is_active(&self) -> bool {
         self.state.get().is_active()
     }
 
     /// Check if the service is in a terminal state (success or failure)
-    #[must_use] 
+    #[must_use]
     pub fn is_terminal(&self) -> bool {
         self.state.get().is_terminal()
     }
@@ -121,13 +121,13 @@ impl ZInitService {
     }
 
     /// Check if the service is running
-    #[must_use] 
+    #[must_use]
     pub fn is_running(&self) -> bool {
         self.pid.as_raw() != 0 && self.state.get().is_active()
     }
 
     /// Check if the service is a one-shot service
-    #[must_use] 
+    #[must_use]
     pub const fn is_one_shot(&self) -> bool {
         self.service.one_shot
     }

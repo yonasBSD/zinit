@@ -26,7 +26,7 @@ pub struct ZInit {
 
 impl ZInit {
     /// Create a new `ZInit` instance
-    #[must_use] 
+    #[must_use]
     pub fn new(cap: usize, container: bool) -> Self {
         let pm = ProcessManager::new(cap);
         let services = Arc::new(RwLock::new(types::ServiceTable::new()));

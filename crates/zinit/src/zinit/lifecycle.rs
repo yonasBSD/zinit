@@ -76,13 +76,13 @@ impl LifecycleManager {
     }
 
     /// Get a reference to the process manager
-    #[must_use] 
+    #[must_use]
     pub const fn process_manager(&self) -> &ProcessManager {
         &self.pm
     }
 
     /// Check if running in container mode
-    #[must_use] 
+    #[must_use]
     pub const fn is_container_mode(&self) -> bool {
         self.container
     }
@@ -229,9 +229,7 @@ impl LifecycleManager {
 
         // If parent is still running, send SIGKILL
         if parent_running {
-            debug!(
-                "Process {parent_pid} still running after SIGTERM, sending SIGKILL"
-            );
+            debug!("Process {parent_pid} still running after SIGTERM, sending SIGKILL");
             let _ = self
                 .pm
                 .signal(Pid::from_raw(parent_pid), signal::Signal::SIGKILL);
@@ -377,15 +375,18 @@ impl LifecycleManager {
         system.refresh_all();
 
         // Get the process
-        system.process(sys_pid).map_or_else(|| Ok((0, 0.0)), |process| {
-            // Get memory in bytes
-            let memory_usage = process.memory();
+        system.process(sys_pid).map_or_else(
+            || Ok((0, 0.0)),
+            |process| {
+                // Get memory in bytes
+                let memory_usage = process.memory();
 
-            // Get CPU usage as percentage
-            let cpu_usage = process.cpu_usage();
+                // Get CPU usage as percentage
+                let cpu_usage = process.cpu_usage();
 
-            Ok((memory_usage, cpu_usage))
-        })
+                Ok((memory_usage, cpu_usage))
+            },
+        )
     }
 
     /// Get stats for child processes
@@ -461,9 +462,7 @@ impl LifecycleManager {
 
             // Check if the main process is still running
             if self.is_process_running(pid).await? {
-                warn!(
-                    "Service {name} (PID {pid}) is still running after shutdown"
-                );
+                warn!("Service {name} (PID {pid}) is still running after shutdown");
 
                 // Try to kill it with SIGKILL
                 let _ = signal::kill(Pid::from_raw(pid), signal::Signal::SIGKILL);
@@ -979,7 +978,7 @@ impl LifecycleManager {
     }
 
     /// Clone the lifecycle manager
-    #[must_use] 
+    #[must_use]
     pub fn clone_lifecycle(&self) -> Self {
         Self {
             pm: self.pm.clone(),
