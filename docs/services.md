@@ -4,17 +4,17 @@ This document describes the structure and options for Zinit service configuratio
 
 ## File Format
 
-Zinit uses YAML files for service configuration. Each service has its own configuration file stored in the Zinit configuration directory (default: `/etc/zinit`).
+Zinit uses YAML files for service configuration. Each service has its own configuration file stored in the Zinit configuration directory (default: `/tmp/zinit`).
 
 ### File Naming and Location
 
-- **Location**: `/etc/zinit/` (default, can be changed with `-c` flag)
+- **Location**: `/tmp/zinit/` (default, can be changed with `-c` flag)
   - on osx `~/hero/cfg/zinit`
 - **Naming**: `<service-name>.yaml`
 
 For example:
-- `/etc/zinit/nginx.yaml`
-- `/etc/zinit/redis.yaml`
+- `/tmp/zinit/nginx.yaml`
+- `/tmp/zinit/redis.yaml`
 
 ## Configuration Schema
 

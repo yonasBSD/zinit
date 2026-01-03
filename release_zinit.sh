@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Navigate to the zinit project directory
 cd /Users/despiegk/code/github/threefoldtech/zinit

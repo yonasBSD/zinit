@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Jump to the directory of the script
 cd "$(dirname "$0")"

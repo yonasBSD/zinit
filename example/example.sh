@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Determine the zinit binary path
 ZINIT_BIN="./target/release/zinit" # Assuming zinit is built in release mode in the current directory
@@ -9,7 +9,7 @@ if [[ "$(uname)" == "Darwin" ]]; then
     ZINIT_CONFIG_DIR="$HOME/hero/cfg/zinit"
 else
     # Linux or other
-    ZINIT_CONFIG_DIR="/etc/zinit"
+    ZINIT_CONFIG_DIR="/tmp/zinit"
 fi
 
 SERVICE_NAME="test_service"
@@ -53,7 +53,7 @@ fi
 echo "Creating sample service file: $SERVICE_FILE"
 cat <<EOF > "$SERVICE_FILE"
 name: $SERVICE_NAME
-exec: /bin/bash -c "while true; do echo 'Hello from $SERVICE_NAME!'; sleep 5; done"
+exec: /usr/bin/env bash -c "while true; do echo 'Hello from $SERVICE_NAME!'; sleep 5; done"
 log: stdout
 EOF
 
@@ -67,7 +67,7 @@ echo "Service file created."
 echo "Creating CPU-intensive service file: $CPU_SERVICE_FILE"
 cat <<EOF > "$CPU_SERVICE_FILE"
 name: $CPU_SERVICE_NAME
-exec: /bin/bash -c "for i in {1..3}; do (yes > /dev/null &) ; done; while true; do sleep 10; done"
+exec: /usr/bin/env bash -c "for i in {1..3}; do (yes > /dev/null &) ; done; while true; do sleep 10; done"
 log: stdout
 EOF
 

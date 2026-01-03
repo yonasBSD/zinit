@@ -37,7 +37,7 @@ zinit init [FLAGS] [OPTIONS]
 - `--container`: Run in container mode, exiting on signal instead of rebooting
 
 **Options:**
-- `-c, --config <DIR>`: Service configurations directory (default: `/etc/zinit/`)
+- `-c, --config <DIR>`: Service configurations directory (default: `/tmp/zinit/`)
 - `-b, --buffer <SIZE>`: Buffer size (in lines) to keep service logs (default: `2000`)
 
 **Example:**

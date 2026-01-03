@@ -1,4 +1,27 @@
-# Zinit [![Rust](https://github.com/threefoldtech/zinit/actions/workflows/rust.yml/badge.svg)](https://github.com/threefoldtech/zinit/actions/workflows/rust.yml)
+# Zinit
+
+![Licenses](https://github.com/yonasBSD/rust-ci-github-actions-workflow/actions/workflows/licenses.yaml/badge.svg)
+![Linting](https://github.com/yonasBSD/rust-ci-github-actions-workflow/actions/workflows/lint.yaml/badge.svg)
+![Testing](https://github.com/yonasBSD/rust-ci-github-actions-workflow/actions/workflows/test-with-coverage.yaml/badge.svg)
+![Packaging](https://github.com/yonasBSD/rust-ci-github-actions-workflow/actions/workflows/release-packaging.yaml/badge.svg)
+![Cross-Build](https://github.com/yonasBSD/rust-ci-github-actions-workflow/actions/workflows/cross-build.yaml/badge.svg)
+
+![Security Audit](https://github.com/yonasBSD/rust-ci-github-actions-workflow/actions/workflows/security.yaml/badge.svg)
+![Scorecard Audit](https://github.com/yonasBSD/rust-ci-github-actions-workflow/actions/workflows/scorecard.yaml/badge.svg)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=yonasBSD_rust-ci-github-actions-workflow&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=yonasBSD_rust-ci-github-actions-workflow)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=yonasBSD_rust-ci-github-actions-workflow&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=yonasBSD_rust-ci-github-actions-workflow)
+[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=yonasBSD_rust-ci-github-actions-workflow&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=yonasBSD_rust-ci-github-actions-workflow)
+<!--[![codecov](https://codecov.io/gh/yonasBSD/rust-ci-github-actions-workflow/branch/main/graph/badge.svg?token=SLIHSUWHT2)](https://codecov.io/gh/yonasBSD/rust-ci-github-actions-workflow)-->
+<!--[![ghcr.io](https://img.shields.io/badge/ghcr.io-download-blue)](https://github.com/yonasBSD/rust-ci-github-actions-workflow/pkgs/container/rust-ci-github-actions-workflow)-->
+<!--[![Docker Pulls](https://img.shields.io/docker/pulls/rust-ci-github-actions-workflow/example.svg)](https://hub.docker.com/r/rust-ci-github-actions-workflow/example)-->
+<!--[![Quay.io](https://img.shields.io/badge/Quay.io-download-blue)](https://quay.io/repository/rust-ci-github-actions-workflow/example)-->
+
+![GitHub last commit](https://img.shields.io/github/last-commit/yonasBSD/rust-ci-github-actions-workflow)
+[![Dependency Status](https://deps.rs/repo/github/yonasBSD/rust-ci-github-actions-workflow/status.svg)](https://deps.rs/repo/github/yonasBSD/rust-ci-github-actions-workflow)
+![Rust](https://img.shields.io/badge/Built%20With-Rust-orange?logo=rust)
+[![GitHub Release](https://img.shields.io/github/release/yonasBSD/rust-ci-github-actions-workflow.svg)](https://github.com/yonasBSD/rust-ci-github-actions-workflow/releases/latest)
+[![License](https://img.shields.io/github/license/yonasBSD/rust-ci-github-actions-workflow.svg)](https://github.com/yonasBSD/rust-ci-github-actions-workflow/blob/main/LICENSE.txt)
+<!--[![Matrix Chat](https://img.shields.io/matrix/vaultwarden:matrix.org.svg?logo=matrix)](https://matrix.to/#/#vaultwarden:matrix.org)-->
 
 Zinit is a lightweight PID 1 replacement inspired by runit, written in Rust using Tokio for async I/O. It provides both a Unix socket interface and an HTTP API for interacting with the process manager.
 
@@ -27,7 +50,7 @@ Click [here](docs/installation.md) for more information on how to install Zinit.
 
 ```bash
 # Run zinit in init mode
-zinit init --config /etc/zinit/ --socket /var/run/zinit.sock
+zinit init --config /tmp/zinit/ --socket /var/run/zinit.sock
 
 # List services
 zinit list
@@ -51,7 +74,7 @@ More information about all the available commands can be found [here](docs/cmd.m
 Zinit uses YAML files for service configuration. Here's a basic example:
 
 ```yaml
-# Service configuration (e.g., /etc/zinit/myservice.yaml)
+# Service configuration (e.g., /tmp/zinit/myservice.yaml)
 exec: "/usr/bin/myservice --option value"   # Command to run (required)
 test: "/usr/bin/check-myservice"            # Health check command (optional)
 oneshot: false                              # Whether to restart on exit (default: false)
