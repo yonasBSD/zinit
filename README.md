@@ -1,4 +1,4 @@
-# ZOS Init [![Rust](https://github.com/threefoldtech/zinit/actions/workflows/rust.yml/badge.svg)](https://github.com/threefoldtech/zinit/actions/workflows/rust.yml)
+# ZOS Init [![Rust](https://github.com/threefoldtech/zos_zinit/actions/workflows/rust.yml/badge.svg)](https://github.com/threefoldtech/zos_zinit/actions/workflows/rust.yml)
 
 ZOS Init is a lightweight PID 1 replacement inspired by runit, written in Rust using Tokio for async I/O. It manages service startup, supervision, and lifecycle, ensuring configured services remain running and handling dependencies through a simple declarative interface.
 
