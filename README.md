@@ -1,25 +1,47 @@
-# Zinit [![Rust](https://github.com/threefoldtech/zinit/actions/workflows/rust.yml/badge.svg)](https://github.com/threefoldtech/zinit/actions/workflows/rust.yml)
+# ZOS Init [![Rust](https://github.com/threefoldtech/zos_zinit/actions/workflows/rust.yml/badge.svg)](https://github.com/threefoldtech/zos_zinit/actions/workflows/rust.yml)
 
-Zinit is a lightweight PID 1 replacement inspired by runit, written in Rust using Tokio for async I/O. It provides both a Unix socket interface and an HTTP API for interacting with the process manager.
+ZOS Init is a lightweight PID 1 replacement inspired by runit, written in Rust using Tokio for async I/O. It manages service startup, supervision, and lifecycle, ensuring configured services remain running and handling dependencies through a simple declarative interface.
 
-### Key Features
+## What this is
 
-- **Service Management**: Ensures configured services are up and running at all times
-- **Dependency Handling**: Supports service dependencies for proper startup ordering
-- **Simple Control Interface**: Provides an intuitive CLI to add, start, stop, and monitor services
-- **Container Support**: Can run in container mode with appropriate signal handling
-- **Configurable Logging**: Multiple logging options including ringbuffer and stdout
+ZOS Init is an init system and process supervisor designed for environments that need reliable service management without the complexity of traditional init systems. It runs as PID 1 or in container mode, monitors configured services, restarts them on failure, and respects dependency ordering during startup and shutdown. ZOS Init exposes both a Unix socket control interface and an HTTP proxy with a JSON-RPC 2.0 API.
+
+## What this repository contains
+
+- **`zinit` binary** — the init system and process supervisor
+- **Unix socket control interface** — for local CLI interaction
+- **HTTP proxy** — JSON-RPC 2.0 API for remote management
+- **CLI commands** — `init`, `list`, `start`, `stop`, `monitor`, `proxy`, and more
+- **Declarative service configuration** via YAML files
+- **Container mode** with appropriate signal handling
+- **Configurable logging** including ringbuffer and stdout options
+
+## Role in the stack
+
+ZOS Init serves as the init system for ZOS / Zero-OS nodes and can also be used as a standalone process manager in containers or lightweight Linux systems. It is the layer that ensures system services (networking, storage, provisioning, and user workloads) are started in the correct order and kept healthy. External tools and clients — including the ZOS Init Client Rust library — can interact with it over its socket or HTTP APIs.
+
+## ZOS / Zero-OS
+
+ZOS, also known as Zero-OS, is the operating system layer used to run and manage nodes. It provides the low-level runtime environment for workloads, networking, storage, and automation. ZOS Init is the init system at the core of ZOS, responsible for bootstrapping and supervising all node services.
+
+## Relation to ThreeFold
+
+This technology is used within the ThreeFold ecosystem and was first deployed on the ThreeFold Grid. The component itself is designed as reusable infrastructure technology and should be understood by its technical function first, independent of any specific deployment.
+
+## Ownership
+
+This repository is owned and maintained by TF-Tech NV, a Belgian company responsible for the development and maintenance of this technology.
 
 ## Installation
 
 ```bash
 curl https://raw.githubusercontent.com/threefoldtech/zinit/refs/heads/master/install.sh | bash
 
-#to install & run
+# to install & run
 curl https://raw.githubusercontent.com/threefoldtech/zinit/refs/heads/master/install_run.sh | bash
 ```
 
-Click [here](docs/installation.md) for more information on how to install Zinit.
+Click [here](docs/installation.md) for more information on how to install ZOS Init.
 
 ## Usage
 
@@ -48,7 +70,7 @@ More information about all the available commands can be found [here](docs/cmd.m
 
 ### Service Configuration
 
-Zinit uses YAML files for service configuration. Here's a basic example:
+ZOS Init uses YAML files for service configuration. Here's a basic example:
 
 ```yaml
 # Service configuration (e.g., /etc/zinit/myservice.yaml)
@@ -64,14 +86,14 @@ For more information on how to configure service files, see the [service file re
 
 ### JSON-RPC API
 
-The HTTP proxy provides a JSON-RPC 2.0 API for interacting with Zinit. You can send JSON-RPC requests to the HTTP endpoint you provided to the proxy:
+The HTTP proxy provides a JSON-RPC 2.0 API for interacting with ZOS Init. You can send JSON-RPC requests to the HTTP endpoint you provided to the proxy:
 
 ```bash
 curl -X POST -H "Content-Type: application/json" -d '{"jsonrpc":"2.0","id":1,"method":"service_list","params":{}}' http://localhost:8080/
 ```
 
-See the [OpenRPC specs](openrpc.json) for more information about available RPC calls to interact with Zinit.
+See the [OpenRPC specs](openrpc.json) for more information about available RPC calls to interact with ZOS Init.
 
 ## License
 
-See [LICENSE](LICENSE) file for details.
+This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENSE) file for details.
